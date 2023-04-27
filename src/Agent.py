@@ -1,4 +1,6 @@
 import random
+
+
 class Agent:
 
     def __init__(self, position, id):
@@ -12,7 +14,7 @@ class Agent:
     def nextposition(self, connections):
         return random.choice(connections)
 
-    def updateposition(self,newposition):
+    def updateposition(self, newposition):
         self.position = newposition
 
     def show(self):

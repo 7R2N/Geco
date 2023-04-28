@@ -1,20 +1,30 @@
-#from src.TradePost import TradePost
+# from src.TradePost import TradePost
 from src.Tree import Tree
-from src.Agent import Agent
+from src.Agent import Agent, Player
 
-#TODO: Turns
+# TODO: Turns, player, tradeposts
 
-p = Tree()
+p = Tree(3)
 
 p.show()
 
-a = Agent(2, 0)
+# creation of agent and player
+pa = Player(2, 0)
 
-a.show()
+pa.show()
 
-for i in range(10):
-    a.show()
-    currentp = p.map[a.position]
-    possibleposition = currentp.connections
-    a.updateposition(a.nextposition(possibleposition))
-    #TODO better display, wagi, logika poruszania sie, implementacja punktów, dodanie różnych rodzajów punktów
+currentp = p.map[pa.position]
+possibleposition = currentp.connections
+dir = int(input())
+pa.updateposition(pa.nextposition(connections=possibleposition, direction=dir))
+
+pa.show()
+
+# basic movement of agent
+# for i in range(10):
+#     a.show()
+#     currentp = p.map[a.position]
+#     possibleposition = currentp.connections
+#     a.updateposition(a.nextposition(possibleposition))
+
+# TODO better display, wagi, logika poruszania sie, implementacja punktów, dodanie różnych rodzajów punktów

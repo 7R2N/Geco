@@ -19,3 +19,14 @@ class Agent:
 
     def show(self):
         print("id:", self.id, "position:", self.position)
+
+
+class Player(Agent):
+    def nextposition(self, connections, direction):
+        if direction == self.position:
+            print("not moving")
+            return direction
+        elif direction in connections:
+            return direction
+        else:
+            print("no connection")

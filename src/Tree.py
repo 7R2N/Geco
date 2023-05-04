@@ -23,12 +23,22 @@ class Tree:
         self.map = []
         for i in range(size):
             connections = [random.randrange(0, size) for c in range(4)]
-            weights = [random.random() for c in range(4)]
             x = random.random()
             y = random.random()
             z = random.random()
-            nPoint = Point.create(i, connections, weights, x, y, z)
+            nPoint = Point.create(i, connections, [], x, y, z)
             self.map.append(nPoint)
+
+        for i, p1 in enumerate(self.map):
+            weights = []
+            for j, connection in enumerate(p1.connections):
+                if p1.id == connection:
+                    weights.append(0)
+                else:
+                    p2 = self.map[connection]
+                    w = 1 / ((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2 + (p2.z - p1.z) ** 2)
+                    weights.append(w)
+            self.map[i].weights = weights
 
     def show(self):
         for i in self.map:

@@ -4,9 +4,9 @@ from src.Agent import Agent, Player
 
 # TODO: Turns, player, tradeposts, matplotlib i mplcursors
 
-p = Tree(10)
+p = Tree(3)
 p.show()
-p.plot()
+
 
 # creation of agent and player
 # pa = Player(2, 0)

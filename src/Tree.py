@@ -22,12 +22,23 @@ class Tree:
     def __init__(self, size):
         self.map = []
         for i in range(size):
-            connections = [random.randrange(0, size) for c in range(4)]
+            connections = []
+            while len(connections) < random.randrange(1, 5):
+                new_connection = random.randrange(0, size)
+                if new_connection != i and new_connection not in connections:
+                    connections.append(new_connection)
             x = random.random()
             y = random.random()
             z = random.random()
             nPoint = Point.create(i, connections, [], x, y, z)
             self.map.append(nPoint)
+
+        while len(connections) < random.randrange(1, 5):
+            new_connection = random.randrange(0, size)
+            if new_connection != i and new_connection not in connections and len(
+                    self.map[new_connection].connections) < 4:
+                connections.append(new_connection)
+                self.map[new_connection].connections.append(i)
 
         for i, p1 in enumerate(self.map):
             weights = []
@@ -54,6 +65,7 @@ class Tree:
         return {
             'points': points
         }
+
     def show(self):
         for i in self.map:
             print(i.id, i.connections, i.weights, i.x, i.y, i.z)

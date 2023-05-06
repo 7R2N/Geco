@@ -5,12 +5,12 @@ import json
 
 # TODO: Turns, player, tradeposts (different ones) i mplcursors, loading from json
 
-p = Tree(3)
+p = Tree(10)
 p.show()
+p.plot()
 
 # with open('./saves/map.json', 'w') as file:
 #     json.dump(p.dict(), file)
-
 
 # creation of agent and player
 # pa = Player(2, 0)

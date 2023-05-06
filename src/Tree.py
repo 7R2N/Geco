@@ -3,7 +3,7 @@ from win32api import GetSystemMetrics
 import matplotlib.pyplot as plt
 
 
-# TODO naprawić wiszące wierzchołki, podgrafy, różne prędkosci na tej samej sciezce
+# TODO naprawić wiszące wierzchołki, podgrafy
 class Point:
     def __init__(self, id, connections, weights, x, y, z):
         self.id = id

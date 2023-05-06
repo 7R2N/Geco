@@ -2,7 +2,7 @@
 from src.Tree import Tree
 from src.Agent import Agent, Player
 
-# TODO: Turns, player, tradeposts, matplotlib i mplcursors
+# TODO: Turns, player, tradeposts (different ones) i mplcursors
 
 p = Tree(3)
 p.show()
@@ -27,4 +27,4 @@ p.show()
 #     possibleposition = currentp.connections
 #     a.updateposition(a.nextposition(possibleposition))
 
-# TODO better display, wagi, logika poruszania sie, implementacja punktów, dodanie różnych rodzajów punktów
+

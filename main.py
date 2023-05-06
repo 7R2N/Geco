@@ -1,11 +1,15 @@
 # from src.TradePost import TradePost
 from src.Tree import Tree
 from src.Agent import Agent, Player
+import json
 
-# TODO: Turns, player, tradeposts (different ones) i mplcursors
+# TODO: Turns, player, tradeposts (different ones) i mplcursors, loading from json
 
 p = Tree(3)
 p.show()
+
+# with open('./saves/map.json', 'w') as file:
+#     json.dump(p.dict(), file)
 
 
 # creation of agent and player

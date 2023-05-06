@@ -40,6 +40,20 @@ class Tree:
                     weights.append(w)
             self.map[i].weights = weights
 
+    def dict(self):
+        points = []
+        for i in self.map:
+            points.append({
+                'id': i.id,
+                'connections': i.connections,
+                'weights': i.weights,
+                'x': i.x,
+                'y': i.y,
+                'z': i.z,
+            })
+        return {
+            'points': points
+        }
     def show(self):
         for i in self.map:
             print(i.id, i.connections, i.weights, i.x, i.y, i.z)

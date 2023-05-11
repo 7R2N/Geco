@@ -1,13 +1,18 @@
 # from src.TradePost import TradePost
 from src.Tree import Tree
 from src.Agent import Agent, Player
+from src.Map import Map
 import json
 
 # TODO: Turns, player, tradeposts (different ones) i mplcursors, loading from json
 
-p = Tree(10)
-p.show()
-p.plot()
+
+if __name__ == '__main__':
+
+    tree = Tree(10)
+
+    viewer = Map(tree)
+    viewer.run()
 
 # with open('./saves/map.json', 'w') as file:
 #     json.dump(p.dict(), file)

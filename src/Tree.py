@@ -1,7 +1,4 @@
 import random
-from win32api import GetSystemMetrics
-import matplotlib.pyplot as plt
-
 
 # TODO naprawić wiszące wierzchołki, podgrafy
 class Point:
@@ -69,20 +66,3 @@ class Tree:
     def show(self):
         for i in self.map:
             print(i.id, i.connections, i.weights, i.x, i.y, i.z)
-
-    def plot(self):
-        plt.rcParams['toolbar'] = 'None'
-        screen_width = GetSystemMetrics(0)
-        screen_height = GetSystemMetrics(1)
-        fig = plt.figure(figsize=(screen_width, screen_height), dpi=250)
-        ax = fig.add_subplot(111, projection='3d')
-        ax.set_axis_off()
-        fig.canvas.set_window_title('fullscreen_toggle')
-        plt.get_current_fig_manager().window.showMaximized()
-        for point in self.map:
-            ax.scatter(point.x, point.y, point.z)
-            for i, connection in enumerate(point.connections):
-                ax.plot([point.x, self.map[connection].x], [point.y, self.map[connection].y],
-                        [point.z, self.map[connection].z], color='black', alpha=0.5)
-        plt.tight_layout()
-        plt.show()

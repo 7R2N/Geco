@@ -1,6 +1,6 @@
 import random
 
-# TODO naprawić wiszące wierzchołki, podgrafy
+# TODO naprawić wiszące wierzchołki, podgrafy, improve point coordinates generation
 class Point:
     def __init__(self, id, connections, weights, x, y, z):
         self.id = id
@@ -24,9 +24,9 @@ class Tree:
                 new_connection = random.randrange(0, size)
                 if new_connection != i and new_connection not in connections:
                     connections.append(new_connection)
-            x = random.random()
-            y = random.random()
-            z = random.random()
+            x = random.randrange(0,10)
+            y = random.randrange(0,10)
+            z = random.randrange(0,10)
             nPoint = Point.create(i, connections, [], x, y, z)
             self.map.append(nPoint)
 

@@ -9,7 +9,7 @@ import json
 
 if __name__ == '__main__':
 
-    tree = Tree(10)
+    tree = Tree(100)
 
     viewer = Map(tree)
     viewer.run()

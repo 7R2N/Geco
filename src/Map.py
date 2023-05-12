@@ -1,9 +1,11 @@
 import pygame
+import random
 from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-#TODO: add some things about handling events, understand whats going on with generating map
+
+# TODO: add some things about handling events, understand whats going on with generating map
 class Map:
     def __init__(self, tree):
         self.tree = tree
@@ -45,9 +47,9 @@ class Map:
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 4:
-                    self.zoom += 0.1
-                elif event.button == 5:
                     self.zoom -= 0.1
+                elif event.button == 5:
+                    self.zoom += 0.1
                 elif event.button == 1:
                     pass
             elif event.type == pygame.MOUSEMOTION:

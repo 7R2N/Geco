@@ -5,7 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 
-# TODO: add some things about handling events, understand whats going on with generating map
+# TODO: add some things about handling events, improve agent movement
 class Map:
     def __init__(self, tree):
         self.tree = tree
@@ -14,6 +14,7 @@ class Map:
         self.yrot = 0.0
         self.xtrans = 0.0
         self.ytrans = 0.0
+        self.agents = []
 
     def draw_map(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -33,14 +34,25 @@ class Map:
 
         glPointSize(10)
         glBegin(GL_POINTS)
+        for agent in self.agents:
+            glColor3f(1.0, 0.0, 0.0)
+            position = self.tree.map[agent.position]
+            glVertex3f(position.x, position.y, position.z)
+        glEnd()
+
+        glPointSize(20)
+        glBegin(GL_POINTS)
         for point in self.tree.map:
             glColor3f(1.0, 1.0, 1.0)
             glVertex3f(point.x, point.y, point.z)
         glEnd()
 
+
+
         pygame.display.flip()
 
     def handle_events(self):
+        press = pygame.key.get_pressed()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -57,15 +69,18 @@ class Map:
                     dx, dy = event.rel
                     self.yrot += dx
                     self.xrot += dy
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    self.xtrans += 0.1
-                elif event.key == pygame.K_RIGHT:
-                    self.xtrans -= 0.1
-                elif event.key == pygame.K_UP:
-                    self.ytrans -= 0.1
-                elif event.key == pygame.K_DOWN:
-                    self.ytrans += 0.1
+
+        if press[pygame.K_UP]:
+            self.ytrans -= 0.1
+        if press[pygame.K_DOWN]:
+            self.ytrans += 0.1
+        if press[pygame.K_LEFT]:
+            self.xtrans += 0.1
+        if press[pygame.K_RIGHT]:
+            self.xtrans -= 0.1
+
+    def add_agent(self, agent):
+        self.agents.append(agent)
 
     def run(self):
         pygame.init()
@@ -82,5 +97,28 @@ class Map:
 
         while True:
             self.handle_events()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        x, y = event.pos
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        pass
+                    elif event.key == pygame.K_LEFT:
+                        pass
+                    elif event.key == pygame.K_RIGHT:
+                        pass
+                    elif event.key == pygame.K_UP:
+                        pass
+                    elif event.key == pygame.K_DOWN:
+                        pass
+            for agent in self.agents:
+                connections = self.tree.map[agent.position].connections
+                new_position = agent.nextposition(connections)
+                agent.updateposition(new_position)
+
             self.draw_map()
             clock.tick(60)

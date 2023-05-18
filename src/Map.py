@@ -86,6 +86,8 @@ class Map:
         pygame.init()
         display = (800, 600)
         pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
+        pygame.display.set_caption("Geco")
+
 
         glMatrixMode(GL_PROJECTION)
         gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
@@ -121,4 +123,5 @@ class Map:
                 agent.updateposition(new_position)
 
             self.draw_map()
+
             clock.tick(60)

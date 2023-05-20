@@ -49,6 +49,21 @@ class Map:
             rot_y = radius * math.sin(angle)
             rot_z = radius * math.cos(angle)
 
+            # ver_x = ((destination.x - position.x) / agent.destination_weight) * t/60
+            # ver_y = ((destination.y - position.y) / agent.destination_weight) * t/60
+            # ver_z = ((destination.z - position.z) / agent.destination_weight) * t/60
+            # if position.x == destination.x and position.y == destination.y and position.z == destination.z:
+            #     agent.moving = False
+            #     glVertex3f(position.x + 0.1, position.y, position.z)
+            # else:
+            #     agent.moving = True
+            #     print(ver_x)
+            #     glVertex3f(position.x + 0.1, position.y, position.z)
+            #     position.x += ver_x
+            #     position.y += ver_y
+            #     position.z += ver_z
+            # glVertex3f(position.x + rot_x, position.y + rot_y, position.z + rot_z)
+
             glPushMatrix()
             glTranslatef(position.x + rot_x, position.y + rot_y, position.z + rot_z)
             glScalef(cube_size, cube_size, cube_size)
@@ -81,22 +96,6 @@ class Map:
             glVertex3f(-1.0, -1.0, 1.0)
             glVertex3f(-1.0, 1.0, 1.0)
             glVertex3f(-1.0, 1.0, -1.0)
-
-
-            # ver_x = ((destination.x - position.x) / agent.destination_weight) * t/60
-            # ver_y = ((destination.y - position.y) / agent.destination_weight) * t/60
-            # ver_z = ((destination.z - position.z) / agent.destination_weight) * t/60
-            # if position.x == destination.x and position.y == destination.y and position.z == destination.z:
-            #     agent.moving = False
-            #     glVertex3f(position.x + 0.1, position.y, position.z)
-            # else:
-            #     agent.moving = True
-            #     print(ver_x)
-            #     glVertex3f(position.x + 0.1, position.y, position.z)
-            #     position.x += ver_x
-            #     position.y += ver_y
-            #     position.z += ver_z
-            # glVertex3f(position.x + rot_x, position.y + rot_y, position.z + rot_z)
 
         glEnd()
 

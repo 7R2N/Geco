@@ -6,7 +6,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-# TODO: add some things about handling events, improve agent movement
+# TODO: add some things about handling events, improve agent movement (do vectors)
 class Map:
     def __init__(self, tree):
         self.tree = tree
@@ -49,10 +49,18 @@ class Map:
             rot_y = radius * math.sin(angle)
             rot_z = radius * math.cos(angle)
 
-            # ver_x = ((destination.x - position.x) / agent.destination_weight) * t/60
-            # ver_y = ((destination.y - position.y) / agent.destination_weight) * t/60
-            # ver_z = ((destination.z - position.z) / agent.destination_weight) * t/60
-            # if position.x == destination.x and position.y == destination.y and position.z == destination.z:
+            ver_x = ((destination.x - position.x) / agent.destination_weight)
+            ver_y = ((destination.y - position.y) / agent.destination_weight)
+            ver_z = ((destination.z - position.z) / agent.destination_weight)
+
+            magnitude = (ver_x ** 2 + ver_y ** 2 + ver_z ** 2)**(1/2)
+            if magnitude != 0:
+                ver_x /= magnitude
+                ver_y /= magnitude
+                ver_z /= magnitude
+
+
+            #if position.x == destination.x and position.y == destination.y and position.z == destination.z:
             #     agent.moving = False
             #     glVertex3f(position.x + 0.1, position.y, position.z)
             # else:
@@ -65,7 +73,7 @@ class Map:
             # glVertex3f(position.x + rot_x, position.y + rot_y, position.z + rot_z)
 
             glPushMatrix()
-            glTranslatef(position.x + rot_x, position.y + rot_y, position.z + rot_z)
+            glTranslatef(position.x + rot_x + ver_x, position.y + rot_y + ver_y, position.z + rot_z + ver_z)
             glScalef(cube_size, cube_size, cube_size)
 
             glRotatef(2.0 * t / 5, 1.0, 0.0, 0.0)

@@ -25,8 +25,9 @@ class Agent:
         return self.destination
 
     def updateposition(self, newposition):
-        #self.position = newposition
+        # self.position = newposition
         pass
+
     def show(self):
         print("id:", self.id, "position:", self.position)
 

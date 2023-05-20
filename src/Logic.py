@@ -29,6 +29,14 @@ class Logic:
             self.xtrans += 0.1
         if press[pygame.K_RIGHT]:
             self.xtrans -= 0.1
+        if press[pygame.K_w]:
+            self.ytrans -= 0.1
+        if press[pygame.K_s]:
+            self.ytrans += 0.1
+        if press[pygame.K_a]:
+            self.xtrans += 0.1
+        if press[pygame.K_d]:
+            self.xtrans -= 0.1
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

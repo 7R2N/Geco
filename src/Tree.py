@@ -24,9 +24,9 @@ class Tree:
                 new_connection = random.randrange(0, size)
                 if new_connection != i and new_connection not in connections:
                     connections.append(new_connection)
-            x = random.randrange(0,10)
-            y = random.randrange(0,10)
-            z = random.randrange(0,10)
+            x = random.randrange(0,20)
+            y = random.randrange(0,20)
+            z = random.randrange(0,20)
             nPoint = Point.create(i, connections, [], x, y, z)
             self.map.append(nPoint)
 

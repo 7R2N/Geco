@@ -6,9 +6,13 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+
 # TODO: add some things about handling events, improve agent movement (do vectors)
 class Map:
     def __init__(self, tree):
+        self.ver_x = None
+        self.ver_y = None
+        self.ver_z = None
         self.tree = tree
         self.zoom = 1.0
         self.xrot = 0.0
@@ -16,8 +20,9 @@ class Map:
         self.xtrans = 0.0
         self.ytrans = 0.0
         self.agents = []
+        self.normalized = False
 
-    def draw_map(self,t):
+    def draw_map(self, t):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
@@ -25,16 +30,15 @@ class Map:
         glRotatef(self.xrot, 1.0, 0.0, 0.0)
         glRotatef(self.yrot, 0.0, 1.0, 0.0)
 
-
         for point in self.tree.map:
             glLineWidth(3.0)
             glBegin(GL_LINES)
             for i, connection in enumerate(point.connections):
                 glColor3f(1.0, 1.0, 1.0)
                 glVertex3f(point.x, point.y, point.z)
-                glVertex3f(self.tree.map[connection].x, self.tree.map[connection].y, self.tree.map[connection].z)
+                glVertex3f(self.tree.map[connection].x, self.tree.map[connection].y,
+                           self.tree.map[connection].z)
             glEnd()
-
 
         for agent in self.agents:
             glColor3f(1.0, 0.0, 0.0)
@@ -49,18 +53,20 @@ class Map:
             rot_y = radius * math.sin(angle)
             rot_z = radius * math.cos(angle)
 
-            ver_x = ((destination.x - position.x) / agent.destination_weight)
-            ver_y = ((destination.y - position.y) / agent.destination_weight)
-            ver_z = ((destination.z - position.z) / agent.destination_weight)
+            if not self.normalized:
+                self.ver_x = ((destination.x - position.x) / agent.destination_weight)
+                self.ver_y = ((destination.y - position.y) / agent.destination_weight)
+                self.ver_z = ((destination.z - position.z) / agent.destination_weight)
 
-            magnitude = (ver_x ** 2 + ver_y ** 2 + ver_z ** 2)**(1/2)
-            if magnitude != 0:
-                ver_x /= magnitude
-                ver_y /= magnitude
-                ver_z /= magnitude
+                magnitude = (self.ver_x ** 2 + self.ver_y ** 2 + self.ver_z ** 2) ** (1 / 2)
+                if magnitude != 0:
+                    self.ver_x /= magnitude
+                    self.ver_y /= magnitude
+                    self.ver_z /= magnitude
+                    self.normalized = True
 
 
-            #if position.x == destination.x and position.y == destination.y and position.z == destination.z:
+            # if position.x == destination.x and position.y == destination.y and position.z == destination.z:
             #     agent.moving = False
             #     glVertex3f(position.x + 0.1, position.y, position.z)
             # else:
@@ -73,7 +79,8 @@ class Map:
             # glVertex3f(position.x + rot_x, position.y + rot_y, position.z + rot_z)
 
             glPushMatrix()
-            glTranslatef(position.x + rot_x + ver_x, position.y + rot_y + ver_y, position.z + rot_z + ver_z)
+            glTranslatef(position.x + rot_x + self.ver_x*t/agent.speed, position.y + rot_y + self.ver_y*t/agent.speed,
+                         position.z + rot_z + self.ver_z*t/agent.speed)
             glScalef(cube_size, cube_size, cube_size)
 
             glRotatef(2.0 * t / 5, 1.0, 0.0, 0.0)
@@ -138,7 +145,6 @@ class Map:
         glEnd()
 
         glPopMatrix()
-
 
         for point in self.tree.map:
             cube_size = 0.2
@@ -224,10 +230,10 @@ class Map:
         glEnable(GL_DEPTH_TEST)
 
         clock = pygame.time.Clock()
-        t=0
+        t = 0
         while True:
             Logic.handle_events(self)
 
             self.draw_map(t)
-            t+=1
+            t += 1
             clock.tick(60)

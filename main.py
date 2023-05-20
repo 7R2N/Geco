@@ -10,7 +10,7 @@ import json
 if __name__ == '__main__':
 
     tree = Tree(10)
-    a = Agent.create(0,0)
+    a = Agent.create(0,0, 60)
     viewer = Map(tree)
     viewer.add_agent(a)
     viewer.run()

@@ -3,16 +3,17 @@ import random
 
 class Agent:
 
-    def __init__(self, position, id):
+    def __init__(self, position, id, speed):
         self.position = position
         self.destination = None
         self.destination_weight = None
         self.id = id
+        self.speed = speed
         self.moving = False
 
     @staticmethod
-    def create(position, id):
-        return Agent(position, id)
+    def create(position, id, speed):
+        return Agent(position, id, speed)
 
     def nextposition(self, connections):
         if not self.moving:
